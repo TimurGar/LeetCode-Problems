@@ -1,44 +1,32 @@
 # Solved with HASH MAP
-
-
-# Notes
-# add the item to hash map, if the item already exists, 
-# add the current ind to the exisiting index
-# and check if the current ind is less than the min_index (append the new min to res)
-# also add if to see if the current ind == min_index
-# name : sum index
-# 
+# beats 95.18%, the idea is adapted and improved from online
 
 def findRestaurant(list1, list2):
-    map1 = {}
-    map2 = {}
+    # list[i] : i
+    map = {}
     res = [1]
-    min_ind = float('inf')    
-
-    for i in range(len(list1)):
-        
-        if list1[i] not in map1:
-            map1[list1[i]] = i
-        
-    for i in range(len(list2)):
-
-        if list2[i] not in map2:
-            map2[list2[i]] = i
-
     sum = 0
-    for ind, store in enumerate(map1):
-        if store in map2:
+    min_ind = float('inf')
 
-            sum = ind + map2[store]
+    # Adding list1 elements to hash map
+    for i in range(len(list1)):
+        map[list1[i]] = i
+    
+    # iterating through list2 elements
+    for i in range(len(list2)):
+        
+        # checking if the store exists in both lists
+        if list2[i] in map:
+            # calcuating the sum of indexes
+            sum = map[list2[i]] + i
 
             if sum < min_ind:
                 min_ind = sum
-                res[0] = store
-
+                res.clear()
+                res.append(list2[i])
+        
             elif sum == min_ind:
-                res.append(store)
-                
-    return res
+                res.append(list2[i])
 
 print(findRestaurant(list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 = ["Piatti","The Grill at Torrey Pines","Hungry Hunter Steakhouse","Shogun"]))
 print(findRestaurant(list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 = ["KFC","Shogun","Burger King"]))
