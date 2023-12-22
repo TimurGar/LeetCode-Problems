@@ -1,4 +1,5 @@
 #LeetCode 144
+# Recursively
 
 class Solution:
 
@@ -16,3 +17,23 @@ class Solution:
         outList = []
         self.preorder(root, outList)
         return outList
+
+ 
+# Iteratively
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        curr = root
+        stack = []
+        res = []
+
+        while curr or stack:
+            if curr:
+                res.append(curr.val)
+                # saving the right child before going to the left child
+                # this way, we don't lose access to the right child
+                stack.append(curr.right)
+                curr = curr.left
+            else:
+                curr = stack.pop()
+
+        return res
